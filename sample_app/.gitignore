@@ -47,6 +47,7 @@ capybara-*.html
 /public/system
 /coverage/
 /spec/tmp
+/spring/
 **.orig
 rerun.txt
 pickle-email-*.html
