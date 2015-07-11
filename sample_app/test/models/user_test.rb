@@ -93,4 +93,22 @@ class UserTest < ActiveSupport::TestCase
         russell.unfollow(archer)
         assert_not russell.following?(archer), "Russell should not be following archer"
     end
+
+    test "feed should have the right posts" do
+        russell = users(:russell)
+        archer  = users(:archer)
+        lana    = users(:lana)
+        # Posts from followed user
+        lana.microposts.each do |post_following|
+            assert russell.feed.include?(post_following)
+        end
+        # Posts from self
+        russell.microposts.each do |own_post|
+            assert russell.feed.include?(own_post)
+        end
+        # Posts from unfollowed user
+        archer.microposts.each do |post_unfollowed|
+            assert_not russell.feed.include?(post_unfollowed)
+        end
+    end
 end
